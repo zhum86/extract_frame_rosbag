@@ -78,7 +78,7 @@ def main():
         bag = rosbag.Bag(join(args.bagdir, bag_file), "r")
         for topic, msg, timestamp in bag.read_messages(topics=args.imgtopic):
             img = np.frombuffer(msg.data, dtype=np.uint8).reshape(msg.height, msg.width, -1)
-            output_file_dir = join(args.outdir, bag_file, topic_dir_lut[topic], f'{timestamp.secs}.{timestamp.nsecs:<09}.png')
+            output_file_dir = join(args.outdir, bag_file, topic_dir_lut[topic], f'{timestamp.secs}.{timestamp.nsecs:>09}.png')
             if topic not in color_encoding_no_cvt:
                 cv_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             else:
